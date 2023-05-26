@@ -89,7 +89,7 @@
             quizContainer.innerHTML = "";
 
             var result = document.createElement("h2");
-            result.textContent = "\n You answered " + score + "/" + questions.length + " questions correctly\n";
+            result.textContent = "\n You answered " + score + "/" + questions.length + " questions correctly\n ";
            
 quizContainer.appendChild(result);
 
