@@ -1,1 +1,28 @@
-/*  your css code here. If applicable */
+
+ .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .quiz-container {
+            margin: 20px;
+        }
+        #question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        #submit {
+            width: 100%;
+            padding: 10px;
+            background-color: purple;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        #submit:hover {
+            background-color: #8a2be2;
+        }
