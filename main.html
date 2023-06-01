@@ -4,35 +4,151 @@
 
 <head>
 	<link rel="stylesheet" href="styles.css">
-</head>
+<title>Quiz App</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .quiz-container {
+            margin: 20px;
+        }
+        #question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        #submit {
+            width: 100%;
+            padding: 10px;
+            background-color: purple;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        #submit:hover {
+            background-color: #8a2be2;
+        }
+    </style>
+    <script>
+        var questions = [
+            {
+                question: "Which language runs in a web browser?",
+                a: "Java",
+                b: "C",
+                c: "Python",
+                d: "JavaScript",
+                correct: "d",
+            },
+            {
+                question: "What does CSS stand for?",
+                a: "Central Style Sheets",
+                b: "Cascading Style Sheets",
+                c: "Cascading Simple Sheets",
+                d: "Cars SUVs Sailboats",
+                correct: "b",
+            },
+            {
+                question: "What does HTML stand for?",
+                a: "Hypertext Markup Language",
+                b: "Hypertext Markdown Language",
+                c: "Hyperloop Machine Language",
+                d: "Helicopters Terminals Motorboats Lamborginis",
+                correct: "a",
+            },
+            {
+                question: "What year was JavaScript launched?",
+                a: "1996",
+                b: "1995",
+                c: "1994",
+                d: "none of the above",
+                correct: "b",
+            }
+        ];
 
-<body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
+        var currentQuestion = 0;
+        var score = 0;
+
+        function loadQuestion() {
+            var quizContainer = document.getElementById("quiz");
+            quizContainer.innerHTML = "";
+
+            var question = document.createElement("h2");
+            question.id = "question";
+            question.textContent = questions[currentQuestion].question;
+            quizContainer.appendChild(question);
+
+            var options = ["a", "b", "c", "d"];
+            options.forEach(function (option) {
+                var label = document.createElement("label");
+                var input = document.createElement("input");
+                input.type = "radio";
+                input.name = "option";
+                input.value = option;
+                input.id = option;
+                label.appendChild(input);
+                label.innerHTML += " <span id='" + option + "_text'>" + questions[currentQuestion][option] + "</span>";
+                quizContainer.appendChild(label);
+            });
+
+            var submitButton = document.createElement("button");
+            submitButton.id = "submit";
+            submitButton.textContent = "Submit";
+            submitButton.onclick = submitAnswer;
+            quizContainer.appendChild(submitButton);
+        }
+
+        function submitAnswer() {
+            var selectedOption = document.querySelector("input[name='option']:checked");
+
+            if (selectedOption) {
+                if (selectedOption.value === questions[currentQuestion].correct) {
+                    score++;
+                }
+
+                currentQuestion++;
+
+                if (currentQuestion < questions.length) {
+                    loadQuestion();
+                } else {
+                    showResult();
+                }
+            }
+        }
+
+        function showResult() {
+            var quizContainer = document.getElementById("quiz");
+            quizContainer.innerHTML = "";
+
+            var result = document.createElement("h2");
+            result.textContent = "Quiz Result: " + score + " out of " + questions.length;
+           
+quizContainer.appendChild(result);
+
+var reloadButton = document.createElement("button");
+reloadButton.textContent = "Reload Quiz";
+reloadButton.onclick = reloadQuiz;
+quizContainer.appendChild(reloadButton);
+}
+
+function reloadQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    loadQuestion();
+}
+
+window.onload = loadQuestion;
 </script>
- <div class="quiz-container" id="quiz">
-	<h2 id="question">Which language runs in a web browser?</h2>
-	<div class="options">
-		<section>
-			<input type="radio" name="question" id="a" value="a" required>
-			<label for="a" id="a_text">Java</label>
-		</section>
-		<section>
-			<input type="radio" name="question" id="b" value="b" required>
-			<label for="b" id="b_text">C</label>
-		</section>
-		<section>
-			<input type="radio" name="question" id="c" value="c" required>
-			<label for="c" id="c_text">Python</label>
-		</section>
-		<section>
-			<input type="radio" name="question" id="d" value="d" required>
-			<label for="d" id="d_text">JavaScript</label>
-		</section>
-	</div>
-	<button id="submit" type="submit">Submit</button>
-   </div>
+</head>
+<body>
+    <div class="container">
+        <div class="quiz-container" id="quiz"></div>
+    </div>
 
+    <script type="text/javascript" src="./script.js"></script>
 </body>
-
 </html>
